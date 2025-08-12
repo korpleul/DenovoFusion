@@ -1,4 +1,4 @@
-# <font color="blue">DenovoFusion</font>
+# ${\color{blue}DenovoFusion}$
 
 ---
 
