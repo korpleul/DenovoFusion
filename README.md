@@ -1,36 +1,32 @@
 # $\textbf{\color{blue}DenovoFusion}$
 
----
+Cite : -tbd-
 
-## 1. Overview
-DenovoFusion is a C++17-based bioinformatics tool designed for detecting fusion genes from de novo assembled contigs derived from DNA-seq short reads. Unlike traditional alignment-based approaches, DenovoFusion leverages the power of whole-genome de novo assembly to reconstruct longer contiguous sequences, allowing for more accurate identification of structural rearrangements.
+## Overview
 
-This tool is capable of detecting both known and novel fusion gene events and provides precise base-level breakpoint resolution, which is essential for understanding the underlying genomic architecture of complex rearrangements. DenovoFusion integrates multiple filtering strategies to reduce false positives, including homologous sequence filtering, edge misalignment filtering, and support-based thresholds, ensuring a high level of accuracy and reliability.
+*DenovoFusion* is a C++17-based bioinformatics tool designed for detecting fusion genes from de novo assembled contigs derived from DNA-seq short reads. Unlike traditional alignment-based approaches, *DenovoFusion* leverages the power of whole-genome de novo assembly to reconstruct longer contiguous sequences, allowing for more accurate identification of structural rearrangements.
 
-Designed with scalability in mind, DenovoFusion can process whole-genome datasets efficiently and is compatible with alignment results in PSL, SAM, and PAF formats. It is particularly suitable for large-scale studies and can serve as a valuable component of comprehensive genomic analysis pipelines.
+This tool is capable of detecting both known and novel fusion gene events and provides precise base-level breakpoint resolution, which is essential for understanding the underlying genomic architecture of complex rearrangements. *DenovoFusion* integrates multiple filtering strategies to reduce false positives, including homologous sequence filtering, edge misalignment filtering, and support-based thresholds, ensuring a high level of accuracy and reliability.
+
+Designed with scalability in mind, *DenovoFusion* can process whole-genome datasets efficiently and is compatible with alignment results in PSL, SAM, and PAF formats. It is particularly suitable for large-scale studies, and can serve as a valuable component of comprehensive genomic analysis pipelines.
 
 Even with long read input files the basic concept remains valid.
 
----
+## Key Features
 
-## 2. Key Features
-- Broad input format support: Accepts alignment results in PSL, SAM, and PAF formats, enabling seamless integration with a wide range of alignment tools such as BLAT, minimap2, and Bowtie2.
+- **Broad input format support:** &nbsp; Accepts alignment results in PSL, SAM, and PAF formats, enabling seamless integration with a wide range of alignment tools such as BLAT, minimap2, and Bowtie2.
 
-- Accurate breakpoint clustering and detection: Implements robust algorithms to cluster split and discordant alignments, ensuring precise identification of base-level breakpoints even in highly repetitive or complex genomic regions.
+- **Accurate breakpoint clustering and detection:** &nbsp; Implements robust algorithms to cluster split and discordant alignments, ensuring precise identification of base-level breakpoints even in highly repetitive or complex genomic regions.
 
-- Comprehensive filtering strategies: Incorporates multiple layers of filtering to minimize false positives, including homologous sequence filtering, edge misalignment detection, minimum support thresholds, and internal tandem duplication filtering.
+- **Comprehensive filtering strategies:** &nbsp; Incorporates multiple layers of filtering to minimize false positives, including homologous sequence filtering, edge misalignment detection, minimum support thresholds, and internal tandem duplication filtering.
 
-- High scalability and performance: Optimized for large-scale datasets, DenovoFusion can process whole-genome assemblies efficiently with multi-threading support, making it suitable for population-level studies or high-throughput analyses.
+- **High scalability and performance:** &nbsp; Optimized for large-scale datasets, *DenovoFusion* can process whole-genome assemblies efficiently with multi-threading support, making it suitable for population-level studies or high-throughput analyses.
 
-- Detection of both known and novel fusion genes: Capable of recovering well-characterized fusion events from literature as well as discovering novel gene fusions that may not be present in existing databases.
+- **Detection of both known and novel fusion genes:** &nbsp; Capable of recovering well-characterized fusion events from literature as well as discovering novel gene fusions that may not be present in existing databases.
 
-- Modular and extensible design: The architecture allows easy integration into existing analysis pipelines and supports future extensions, such as additional filtering modules or visualization tools.
+- **Modular and extensible design:** &nbsp; The architecture allows easy integration into existing analysis pipelines and supports future extensions, such as additional filtering modules or visualization tools.
 
----
-
-## 3. Installation procedures
-
----
+## Installation procedures
 
 ### Prerequisites
 
@@ -39,10 +35,10 @@ Even with long read input files the basic concept remains valid.
 The prerequisites are fully optional and could be adjusted to the users needs.
 
 Nevertheless, for creating a 'psl' alignment file as well as to assemble
-the genomic 'contig' sequences for the **DenovoFusion** input, something like an
+the genomic 'contig' sequences for the *DenovoFusion* input, something like an
 alignment program and an assembly program are neccessary prerequisites.
 
-In the presented workflow enviroment 'pblat' and 'MegaHit' is used.
+In the present workflow enviroment 'pblat' and 'MegaHit' are used.
 
 **Dependencies**
 
@@ -74,8 +70,6 @@ pblat -minIdentity=98 -threads=36 genome.fa assembly.fa -ooc=GRCh38.11.ooc outpu
 megahit -1 reads_R1.fastq -2 reads_R2.fastq --k-list 39,59,79,99 -o assembly_output
 ```
 
----
-
 ### DenovoFusion
 
 **Description**
@@ -104,9 +98,26 @@ make
 cd ..
 sh ./test.sh
 ```
----
 
-## 4. Input files for DenovoFusion
+If *DenovoFusion* could be started successfully, a lot of lines are shown in the terminal explaining the ongoing work steps
+and the successfull termination of the program.
+```
+$ sh ./test.sh
+[2025-08-12 13:04:28] Program DenovoFusion start
+[2025-08-12 13:04:28] Launching fusion gene analysing program version 1.0.0
+[2025-08-12 13:04:28] Stage1: Determine representive alignment for each contig 
+[2025-08-12 13:04:28] Loading alignments from PSL file: 'test/test.psl'
+... ...
+[2025-08-12 13:04:32] Coverage per base of each contig is calculated and saved
+[2025-08-12 13:04:32] Saved per-base coverage to  'test/test.per_base_coverage.tsv' 
+[2025-08-12 13:04:32] Write fusion list into file: 'test/test.fusion_list.tsv' 
+[2025-08-12 13:04:32] Write discarded fusion list into file: 'test/test.discarded_fusions.tsv' 
+[2025-08-12 13:04:32] Stage5: Calculation of the coverage and  prediction of breakpoints 
+[2025-08-12 13:04:32] Done (elapsed time=00:00:04, CPU time=00:00:03, peak memory=0.0327gb)
+```
+If no error occured, the program is ready for production use.
+
+## Input files for DenovoFusion
 - **DNA-seq paired-end reads:** &nbsp; Supported in standard FASTQ or compressed FASTQ.GZ format. 
 
 - **Alignment files:** &nbsp; Alignment results generated by tools such as BLAT, minimap2, or Bowtie2, provided in **PSL**, **SAM**, or **PAF** format. 
@@ -117,7 +128,7 @@ sh ./test.sh
 
 ---
 
-## 5. Usage
+## Usage
 
 A minimal test example in the file *test.sh* having the following command
 should run without errors in some seconds.
@@ -125,11 +136,10 @@ should run without errors in some seconds.
 DenovoFusion -m blat -q 12 -i input.psl -a assembly.fa -o path/to/result -p prefix -g Homo_sapiens.GRCh38.105.gtf -1 01.fastq.gz -2 02.fastq.gz 
 ```
 
----
-
-## 6. Description of the program parameters
+## Description of the program parameters
 
 ### Required parameters
+
 ```
 -m, --method
  DenovoFusion applies the same alignment method previously used for contig
@@ -168,6 +178,7 @@ DenovoFusion -m blat -q 12 -i input.psl -a assembly.fa -o path/to/result -p pref
 ```
 
 ### Optional parameter
+
 ```
 -h, --help
  Displays the parameter help message and exit.
@@ -236,9 +247,7 @@ DenovoFusion -m blat -q 12 -i input.psl -a assembly.fa -o path/to/result -p pref
  Minimum number of spanning reads required as support (Default: 1).
 ```
 
----
-
-## 7. Description of the output files
+## Description of the output files
 
 The standard output folder includes the following files:
 ```
@@ -272,20 +281,14 @@ The standard output folder includes the following files:
 
 ---
 
-## 8. License
+## License
 
 This project is licensed under the GPL License – see the LICENSE file for details.
 
----
-
-## 9. Contact
+## Contact
 
 Developer: Xinwei Zhao
 
-Email: zhaoxi@uni-muenster.de
-
-or alternatively
-
-eberhard.korsching@uni-muenster.de
+Email: zhaoxi@uni-muenster.de or korschi@uni-muenster.de
 
 ---
