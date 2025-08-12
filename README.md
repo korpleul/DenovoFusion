@@ -38,7 +38,8 @@ Nevertheless, for creating a 'psl' alignment file as well as to assemble
 the genomic 'contig' sequences for the *DenovoFusion* input, something like an
 alignment program and an assembly program are neccessary prerequisites.
 
-In the present workflow enviroment 'pblat' and 'MegaHit' are used.
+In the present workflow 'pblat' and 'MegaHit' are used.
+All work below is taking place in a terminal environment.
 
 **Dependencies**
 
