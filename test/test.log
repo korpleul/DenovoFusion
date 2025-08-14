@@ -1,0 +1,49 @@
+[INFO]: [2025-08-14 14:48:56] Program DenovoFusion start
+[INFO]: [2025-08-14 14:48:56] DenovoFusion version = 1.0.0
+[INFO]: [2025-08-14 14:48:56] Stage1: Determine representive alignment for each contig 
+[INFO]: [2025-08-14 14:48:56] Loading alignments from PSL file: 'test/test.psl' 
+[INFO]: [2025-08-14 14:48:56] The original contig include 28 sequences 
+[INFO]: [2025-08-14 14:48:56] This psl file includes in total 28 contigs，alignments number in each contig range from: 1 to 14
+[INFO]: [2025-08-14 14:48:56] Count the chosen alignments which could represent each contig: 29
+[INFO]: [2025-08-14 14:48:56] Stage2: Grouping the alignments 
+[INFO]: [2025-08-14 14:48:56] All the chosen alignments will be divided into different types: single alignments, gaps alignments, overlaps pairs alignments, multiples alignments
+[INFO]: [2025-08-14 14:48:56] single alignments: 26
+[INFO]: [2025-08-14 14:48:56] gaps alignments: 1
+[INFO]: [2025-08-14 14:48:56] pairs alignments: 1
+[INFO]: [2025-08-14 14:48:56] multiples alignments: 0
+[INFO]: [2025-08-14 14:48:56] All the paired chosen alignments will be divided into different types: overlap in same strand, gaps in same strand, overlaps in different strand, gaps in different strand 
+[INFO]: [2025-08-14 14:48:56] Number of overlaps same strand alignments: 2
+[INFO]: [2025-08-14 14:48:56] Number of overlaps different strand alignments: 0
+[INFO]: [2025-08-14 14:48:56] Number of gaps same strand alignments: 0
+[INFO]: [2025-08-14 14:48:56] Number of gaps different strand alignments: 0
+[2025-08-14 14:48:56] Information for the alignments classified Overlaps Same Strand: 
+[2025-08-14 14:48:56]	Contig:k99_964195_21	qlength:1000	qstart:626	qend:999	chr:22	strand:-	identity:1	score:37
+[2025-08-14 14:48:56]	Contig:k99_964195_21	qlength:1000	qstart:0	qend:626	chr:11	strand:-	identity:1	score:62
+[2025-08-14 14:48:56] Information for the alignments classified Overlaps Different Strand: 
+[2025-08-14 14:48:56] Information for the alignments classified Gaps Same Strand: 
+[2025-08-14 14:48:56] Information for the alignments classified Gaps Different Strand: 
+[2025-08-14 14:48:56] Merged sequences have been written to test/test.chosen.fasta
+[INFO]: [2025-08-14 14:48:56] Stage3: Start realigning reads to contigs with using bowtie2 
+[INFO]: [2025-08-14 14:48:56] Updated PATH for bowtie2 binaries.
+[INFO]: [2025-08-14 14:48:56] Bowtie2 index built.
+[INFO]: [2025-08-14 14:48:57] Finished bowtie2 alignment.
+[INFO]: [2025-08-14 14:48:57] Calculate the number of split reads and spanning read pairs for all querys
+[INFO]: [2025-08-14 14:48:57]	Query:k99_964195	split reads: 3	span reads: 2
+[INFO]: [2025-08-14 14:48:57] Filtered chosen alignments: 29
+[INFO]: [2025-08-14 14:48:57] Stage4: Annotation of the gene, filtering the candidates and output the remain results 
+[2025-08-14 14:48:57] Filtering the invalid annotations (remaining=1)
+[2025-08-14 14:48:57] Filtering the empty annotations (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions with duplicates (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions in MT, mitochondrial (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions with long gaps (remaining=1)
+[2025-08-14 14:48:57] Filtering internal tandem duplications (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions with homologs (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions with small fragements (remaining=1)
+[2025-08-14 14:48:57] Filtering fusions under minimum support reads (remaining=1)
+[2025-08-14 14:49:00] Final fusion genes:	k99_964195	FLI1	EWSR1	ENSG00000151702	ENSG00000182944	3	2	11	22	DOWNSTREAM	UPSTREAM	128800664	128821290	29285329	29292560	intron@6	exon@11	kept	
+[INFO]: [2025-08-14 14:49:00] Stage5: Calculation of the coverage and  prediction of breakpoints 
+[INFO]: [2025-08-14 14:49:00] Saved per-base coverage to  'test/test.per_base_coverage.tsv' 
+[INFO]: [2025-08-14 14:49:00]Evaluating breakpoints for contig: k99_964195
+[DEBUG]: [2025-08-14 14:49:00]Single base contig detected at position 20626, marked as breakpoint
+
+[INFO]: [2025-08-14 14:49:00] The program ends
