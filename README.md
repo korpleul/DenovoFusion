@@ -296,6 +296,7 @@ This project is licensed under the GPL License – see the LICENSE file for deta
 ## Contact
 
 Developer: Xinwei Zhao zhaoxi@uni-muenster.de
+
 Group leader: Eberhard Korsching korschi@uni-muenster.de
 
 ---
