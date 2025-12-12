@@ -115,11 +115,11 @@ void writeToTSV(const std::vector<result_t>& final_results, const std::string& f
         return;
     }
 
-    // 写TSV头部，用制表符分隔
+    //
     outFile << "Contig\tGene1\tGene2\tGene_ID1\tGene_ID2\tSplit_Reads_Count\tSpan_Reads_Count\t"
                "Chromosome1\tChromosome2\tDirection1\tDirection2\tTStart1\tTEnd1\tTStart2\tTEnd2\tregiontype1\tregiontype2\tfilter_status\n";
 
-    // 写数据，字段间用\t分隔
+    //
     for (const auto& result : final_results) {
         outFile << result.contig << "\t"
                 << result.gene1 << "\t"

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 project(DenovoFusion)
 
 set(CMAKE_CXX_STANDARD 17)
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 add_executable(DenovoFusion main.cpp
@@ -67,6 +66,8 @@ add_executable(DenovoFusion main.cpp
         src/filter_internal_tandem_duplication.h
         src/filter_mt.cpp
         src/filter_mt.h
+        src/support_writing.cpp
+        src/support_writing.h
 
 
 )

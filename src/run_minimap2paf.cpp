@@ -49,6 +49,7 @@
 #include "filter_mt.h"
 #include "filter_small_fragments.h"
 #include "recover_known_fusion.h"
+#include "support_writing.h"
 #include "utils.h"
 
 // We apply this function to integrate all the calculation steps into this function, which includes 4 stages, same with the
@@ -218,7 +219,6 @@ void run_minimap2paf(const options_t& options) {
     Logger::Info(get_time_string() + " Stage2: Grouping the alignments ");
     // Using functions to get different types of alignment
     auto singles = single_alignments(chosen_alignments);
-    auto gaps = gap_alignments(chosen_alignments);
     auto pairs = pair_alignments(chosen_alignments);
     auto multiples = multiple_alignments(chosen_alignments);
 
@@ -227,8 +227,6 @@ void run_minimap2paf(const options_t& options) {
     Logger::Info(get_time_string() + " All the chosen alignments will be divided into different types: single alignments, gaps alignments, overlaps pairs alignments, multiples alignments");
     std::cout << get_time_string() << " single alignments: " << singles.size() << std::endl;
     Logger::Info(get_time_string() + " single alignments: "  + std::to_string(singles.size()));
-    std::cout << get_time_string() << " gaps alignments: " << gaps.size() << " (paf/sam file doesn't have gap alignment information)" << std::endl;
-    Logger::Info(get_time_string() + " gaps alignments: " + " (paf/sam file doesn't have gap alignment information)" + std::to_string(gaps.size()));
     std::cout << get_time_string() << " pairs alignments: " << pairs.size() << std::endl;
     Logger::Info(get_time_string() + " pairs alignments: " + std::to_string(pairs.size()));
     std::cout << get_time_string() << " multiples alignments: " << multiples.size() << std::endl;
@@ -407,13 +405,10 @@ void run_minimap2paf(const options_t& options) {
     // Calculation support reads
     std::unordered_map<std::string, int> splitReadsCount = countSplitReads(overlapMap, samMap,options);
 
-    auto splitReadsMap = collectSplitReads(overlapMap, samMap, options);
+    auto spanReads = collectSpanReads(overlapMap, samMap, options);
 
-    // Specify the output file name
-    std::string outputFilename = options.output + "/" + options.prefix + ".split_reads.txt";
+    auto splitReads = collectSplitReads(overlapMap, samMap, options);
 
-    // Write split reads to the file
-    writeSplitReadsToFile(splitReadsMap, outputFilename, options);
 
     std::unordered_map<std::string, int> spanReadsCount = countSpanReadPairs(overlapMap, samMap);
 
@@ -706,6 +701,8 @@ void run_minimap2paf(const options_t& options) {
                        << std::endl;
     }
 
+    // Write supporting reads into fq files
+    writeEvidenceToFastq(final_results, splitReads, spanReads, options.prefix + ".evidence", options);
 
     // Write to TSV file
     writeToTSV(final_results, options.output + "/" + options.prefix + ".fusion_list.tsv");

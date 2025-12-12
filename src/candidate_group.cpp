@@ -15,32 +15,16 @@ std::vector<alignment_t> single_alignments(const std::vector<alignment_t>& align
         queryCount[alignment.query]++;
     }
 
-    // Filter alignments where the block number is 1 and the query name appears uniquely in all alignments
+    // Filter alignments where the query name appears uniquely in all alignments
     for (const auto& alignment : alignments) {
-        if (alignment.blockcount == 1 && queryCount[alignment.query] == 1) {
+        if (queryCount[alignment.query] == 1) {
             single_alignments.push_back(alignment);
         }
     }
+
     return single_alignments;
 }
 
-std::vector<alignment_t> gap_alignments(const std::vector<alignment_t>& alignments) {
-    std::vector<alignment_t> gap_alignments;
-    std::unordered_map<std::string, int> queryCount;
-
-    // Count the number of times each query name occurs
-    for (const auto& alignment : alignments) {
-        queryCount[alignment.query]++;
-    }
-
-    // Filter alignments where the block number is 1 and the query name is not the only one in all alignments
-    for (const auto& alignment : alignments) {
-        if (alignment.blockcount > 1 && queryCount[alignment.query] == 1) {
-            gap_alignments.push_back(alignment);
-        }
-    }
-    return gap_alignments;
-}
 
 std::vector<std::pair<alignment_t, alignment_t>> pair_alignments(const std::vector<alignment_t>& alignments) {
     std::unordered_map<std::string, std::vector<alignment_t>> queryMap;
@@ -83,8 +67,6 @@ std::vector<alignment_t> multiple_alignments(const std::vector<alignment_t>& ali
 
 void group_alignments(const std::vector<alignment_t>& alignments) {
     auto singles = single_alignments(alignments);
-
-    auto gaps = gap_alignments(alignments);
 
     auto pairs = pair_alignments(alignments);
 

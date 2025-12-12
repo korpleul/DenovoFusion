@@ -17,6 +17,7 @@
 #include "options.h"
 
 
+
 extern std::unordered_map<std::string, std::vector<OverlapResultCls>> overlapMap;
 extern std::unordered_map<std::string, std::vector<sam_t>> samMap;
 
@@ -38,11 +39,12 @@ std::unordered_map<std::string, std::vector<sam_t>> collectSplitReads(
     const std::unordered_map<std::string, std::vector<OverlapResultCls>>& overlapMap,
     const std::unordered_map<std::string, std::vector<sam_t>>& samMap,
     const options_t& options);
+std::unordered_map<std::string, std::vector<sam_t>> collectSpanReads(
+    const std::unordered_map<std::string, std::vector<OverlapResultCls>>& overlapMap,
+    const std::unordered_map<std::string, std::vector<sam_t>>& samMap,
+    const options_t& options);
 
-void writeSplitReadsToFile(
-    const std::unordered_map<std::string, std::vector<sam_t>>& splitReadsMap,
-    const std::string& outputFilename,
-    const options_t& options) ;
+
 
 std::unordered_set<std::string> filterQueries(
         const std::unordered_map<std::string, int>& splitReadsCount,

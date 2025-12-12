@@ -147,13 +147,9 @@ std::unordered_map<std::string, std::vector<int>> evaluateBreakpoints(
     std::unordered_map<std::string, std::vector<int>> finalBreakpointsMap;
 
     for (const auto& [contig, coverageMap] : newPerBaseCoverageMap) {
-        Logger::Info( get_time_string() + "Evaluating breakpoints for contig: " + contig);
-
         if (coverageMap.size() == 1) {
             for (const auto& [pos, count] : coverageMap) {
                 finalBreakpointsMap[contig].push_back(pos);
-                Logger::Debug(get_time_string() + "Single base contig detected at position " +
-                              std::to_string(pos) + ", marked as breakpoint\n");
             }
             continue;
         }

@@ -295,8 +295,8 @@ This project is licensed under the GPL License – see the LICENSE file for deta
 
 ## Contact
 
-Developer: Xinwei Zhao zhaoxi@uni-muenster.de
+Developer: Xinwei Zhao
 
-Group leader: Eberhard Korsching korschi@uni-muenster.de
+Email: zhaoxi@uni-muenster.de or korschi@uni-muenster.de
 
 ---

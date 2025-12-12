@@ -24,8 +24,6 @@
 
 std::vector<alignment_t> single_alignments(const std::vector<alignment_t>& alignments);
 
-std::vector<alignment_t> gap_alignments(const std::vector<alignment_t>& alignments);
-
 std::vector<std::pair<alignment_t, alignment_t>> pair_alignments(const std::vector<alignment_t>& alignments);
 
 std::vector<alignment_t> multiple_alignments(const std::vector<alignment_t>& alignments);

@@ -276,12 +276,35 @@ std::vector<coordination_t> extractSimpleCoordinations(const std::vector<alignme
     return coordinations;
 }
 
+
+
+
+void writeFastqRecord(std::ofstream& out, const sam_t& read) {
+    // FASTQ standard
+    // Line 1: @ReadName
+    // Line 2: Sequence
+    // Line 3: +
+    // Line 4: Quality Score
+
+    out << "@" << read.qname << "\n"
+        << read.seq << "\n"
+        << "+\n";
+
+
+    if (read.qual.empty() || read.qual == "*") {
+        out << std::string(read.seq.length(), 'I') << "\n";
+    } else {
+        out << read.qual << "\n";
+    }
+}
+
+
+
 std::unordered_map<std::string, std::vector<sam_t>> collectSplitReads(
     const std::unordered_map<std::string, std::vector<OverlapResultCls>>& overlapMap,
     const std::unordered_map<std::string, std::vector<sam_t>>& samMap,
     const options_t& options) {
 
-    // Map to store queryName and their corresponding split reads
     std::unordered_map<std::string, std::vector<sam_t>> splitReadsMap;
 
     for (const auto& overlapEntry : overlapMap) {
@@ -290,51 +313,66 @@ std::unordered_map<std::string, std::vector<sam_t>> collectSplitReads(
 
         if (samMap.find(queryName) != samMap.end()) {
             const std::vector<sam_t>& reads = samMap.at(queryName);
-
             for (const auto& overlap : overlaps) {
                 for (const auto& read : reads) {
                     if (isReadSupportingOverlap(read, overlap, options)) {
-                        // Add the supporting split read to the map
                         splitReadsMap[queryName].push_back(read);
                     }
                 }
             }
         }
     }
-
     return splitReadsMap;
 }
 
-
-
-void writeSplitReadsToFile(
-    const std::unordered_map<std::string, std::vector<sam_t>>& splitReadsMap,
-    const std::string& outputFilename,
+std::unordered_map<std::string, std::vector<sam_t>> collectSpanReads(
+    const std::unordered_map<std::string, std::vector<OverlapResultCls>>& overlapMap,
+    const std::unordered_map<std::string, std::vector<sam_t>>& samMap,
     const options_t& options) {
 
-    // Open a file for writing
-    std::ofstream outputFile(outputFilename);
+    // Output container: QueryName -> List of Spanning Reads
+    std::unordered_map<std::string, std::vector<sam_t>> spanReadsMap;
 
-    if (!outputFile.is_open()) {
-        std::cerr << "Error: Unable to open file " << outputFilename << " for writing.\n";
-        return;
-    }
+    for (const auto& overlapEntry : overlapMap) {
+        const std::string& queryName = overlapEntry.first; // The Contig Name
+        const std::vector<OverlapResultCls>& overlaps = overlapEntry.second;
 
-    // Write split reads to the file
-    for (const auto& entry : splitReadsMap) {
-        const std::string& queryName = entry.first;
-        const std::vector<sam_t>& reads = entry.second;
+        // Check if this contig has mapped reads
+        if (samMap.find(queryName) != samMap.end()) {
+            const std::vector<sam_t>& reads = samMap.at(queryName);
 
-        outputFile << "Query: " << queryName << "\n";
+            // ---------------------------------------------------------
+            // Step 1: Group reads by Read Name (QNAME) to reconstruct pairs
+            // ---------------------------------------------------------
+            // We use a temporary map to buffer potential pairs
+            std::unordered_map<std::string, std::vector<sam_t>> pairBuffer;
+            for (const auto& read : reads) {
+                pairBuffer[read.qname].push_back(read);
+            }
 
-        for (const auto& read : reads) {
-            outputFile << "Read Name: " << read.qname << "\n";
-            outputFile << "Position: " << read.pos << "\n";
-            outputFile << "Sequence: " << read.seq << "\n";
-            outputFile << "-------------------------\n";
+            // ---------------------------------------------------------
+            // Step 2: Evaluate pairs against the overlap region
+            // ---------------------------------------------------------
+            for (const auto& overlap : overlaps) {
+                for (const auto& pairEntry : pairBuffer) {
+                    const std::vector<sam_t>& pair = pairEntry.second;
+
+                    // We only evaluate valid pairs (exactly 2 reads with the same name)
+                    if (pair.size() == 2) {
+                        const sam_t& read1 = pair[0];
+                        const sam_t& read2 = pair[1];
+
+                        // Use your custom strict logic
+                        if (isSpanningPair(read1, read2, overlap)) {
+                            // If they are a spanning pair, add BOTH to the output
+                            spanReadsMap[queryName].push_back(read1);
+                            spanReadsMap[queryName].push_back(read2);
+                        }
+                    }
+                }
+            }
         }
     }
 
-    outputFile.close();
-    std::cout << "Split reads written to " << options.output << "/" << outputFilename << "\n";
+    return spanReadsMap;
 }

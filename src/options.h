@@ -14,7 +14,7 @@
 
 #include "common.h"
 
-const std::string DENOVOFUSION_VERSION = "1.0.1";
+const std::string DENOVOFUSION_VERSION = "1.0.2";
 
 
 struct options_t {
