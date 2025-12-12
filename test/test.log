@@ -1,0 +1,45 @@
+[INFO]: [2025-12-12 15:37:47] Program DenovoFusion start
+[INFO]: [2025-12-12 15:37:47] DenovoFusion version = 1.0.2
+[INFO]: [2025-12-12 15:37:47] Stage1: Determine representive alignment for each contig 
+[INFO]: [2025-12-12 15:37:47] Loading alignments from PSL file: 'test/test.psl' 
+[INFO]: [2025-12-12 15:37:47] The original contig include 28 sequences 
+[INFO]: [2025-12-12 15:37:47] This psl file includes in total 28 contigs，alignments number in each contig range from: 1 to 14
+[INFO]: [2025-12-12 15:37:47] Count the chosen alignments which could represent each contig: 29
+[INFO]: [2025-12-12 15:37:47] Stage2: Grouping the alignments 
+[INFO]: [2025-12-12 15:37:47] All the chosen alignments will be divided into different types: single alignments, gaps alignments, overlaps pairs alignments, multiples alignments
+[INFO]: [2025-12-12 15:37:47] single alignments: 27
+[INFO]: [2025-12-12 15:37:47] pairs alignments: 1
+[INFO]: [2025-12-12 15:37:47] multiples alignments: 0
+[INFO]: [2025-12-12 15:37:47] All the paired chosen alignments will be divided into different types: overlap in same strand, gaps in same strand, overlaps in different strand, gaps in different strand 
+[INFO]: [2025-12-12 15:37:47] Number of overlaps same strand alignments: 2
+[INFO]: [2025-12-12 15:37:47] Number of overlaps different strand alignments: 0
+[INFO]: [2025-12-12 15:37:47] Number of gaps same strand alignments: 0
+[INFO]: [2025-12-12 15:37:47] Number of gaps different strand alignments: 0
+[2025-12-12 15:37:47] Information for the alignments classified Overlaps Same Strand: 
+[2025-12-12 15:37:47]	Contig:k99_964195_21	qlength:1000	qstart:626	qend:999	chr:22	strand:-	identity:1	score:37
+[2025-12-12 15:37:47]	Contig:k99_964195_21	qlength:1000	qstart:0	qend:626	chr:11	strand:-	identity:1	score:62
+[2025-12-12 15:37:47] Information for the alignments classified Overlaps Different Strand: 
+[2025-12-12 15:37:47] Information for the alignments classified Gaps Same Strand: 
+[2025-12-12 15:37:47] Information for the alignments classified Gaps Different Strand: 
+[2025-12-12 15:37:47] Merged sequences have been written to test/test.chosen.fasta
+[INFO]: [2025-12-12 15:37:47] Stage3: Start realigning reads to contigs with using bowtie2 
+[INFO]: [2025-12-12 15:37:47] Updated PATH for bowtie2 binaries.
+[INFO]: [2025-12-12 15:37:47] Bowtie2 index built.
+[INFO]: [2025-12-12 15:37:47] Finished bowtie2 alignment.
+[INFO]: [2025-12-12 15:37:48] Calculate the number of split reads and spanning read pairs for all querys
+[INFO]: [2025-12-12 15:37:48]	Query:k99_964195	split reads: 3	span reads: 2
+[INFO]: [2025-12-12 15:37:48] Filtered chosen alignments: 29
+[INFO]: [2025-12-12 15:37:48] Stage4: Annotation of the gene, filtering the candidates and output the remain results 
+[2025-12-12 15:37:48] Filtering the invalid annotations (remaining=1)
+[2025-12-12 15:37:48] Filtering the empty annotations (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions with duplicates (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions in MT, mitochondrial (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions with long gaps (remaining=1)
+[2025-12-12 15:37:48] Filtering internal tandem duplications (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions with homologs (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions with small fragements (remaining=1)
+[2025-12-12 15:37:48] Filtering fusions under minimum support reads (remaining=1)
+[2025-12-12 15:37:50] Final fusion genes:	k99_964195	FLI1	EWSR1	ENSG00000151702	ENSG00000182944	3	2	11	22	DOWNSTREAM	UPSTREAM	128800664	128821290	29285329	29292560	intron@6	exon@11	kept	
+[INFO]: [2025-12-12 15:37:50] Stage5: Calculation of the coverage and  prediction of breakpoints 
+[INFO]: [2025-12-12 15:37:50] Saved per-base coverage to  'test/test.per_base_coverage.tsv' 
+[INFO]: [2025-12-12 15:37:50] The program ends

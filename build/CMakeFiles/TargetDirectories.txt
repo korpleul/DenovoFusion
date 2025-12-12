@@ -1,0 +1,3 @@
+/home/korschi/DenovoFusion/build/CMakeFiles/DenovoFusion.dir
+/home/korschi/DenovoFusion/build/CMakeFiles/edit_cache.dir
+/home/korschi/DenovoFusion/build/CMakeFiles/rebuild_cache.dir

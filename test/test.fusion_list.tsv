@@ -1,0 +1,2 @@
+Contig	Gene1	Gene2	Gene_ID1	Gene_ID2	Split_Reads_Count	Span_Reads_Count	Chromosome1	Chromosome2	Direction1	Direction2	TStart1	TEnd1	TStart2	TEnd2	regiontype1	regiontype2	filter_status
+k99_964195	FLI1	EWSR1	ENSG00000151702	ENSG00000182944	3	2	11	22	DOWNSTREAM	UPSTREAM	128800664	128821290	29285329	29292560	intron@6	exon@11	kept
