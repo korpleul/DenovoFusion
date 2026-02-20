@@ -1,6 +1,9 @@
 # $\textbf{\color{blue}DenovoFusion}$
 
-Cite : -tba-
+Cite : A de novo assembly based fusion gene detection concept based on DNA-seq data of 100 Ewing sarcoma cases
+Xinwei Zhao , Marc Hotfilder , Eberhard Korsching
+Briefings in Bioinformatics, Volume 27, Issue 1, January 2026, [bbag059](https://doi.org/10.1093/bib/bbag059)
+Published: 16 February 2026
 
 ## Overview
 
